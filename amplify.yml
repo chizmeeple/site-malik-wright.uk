@@ -15,6 +15,7 @@ frontend:
   artifacts:
     baseDirectory: _site
     files:
-      - '**/*'
+      - "**/*"
   cache:
-    paths: []
+    paths:
+      - vendor/bundle/**/*
