@@ -17,7 +17,8 @@ gem "jekyll", "~> 4.3"
 #gem "jekyll-theme-hydejack", "~> 9.0"
 
 # pro version
-gem "jekyll-theme-hydejack", "~> 9.2"
+gem "jekyll-theme-hydejack", path: "./#jekyll-theme-hydejack"
+
 
 # IMPORTANT: The following gem is used to compile math formulas to 
 # KaTeX during site building.
