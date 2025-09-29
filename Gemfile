@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby '3.3.0'
+ruby '3.4.5'
 gem "bundler", "~> 2.3"
 
 # Hello! This is where you manage which Jekyll version is used to run.
