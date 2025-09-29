@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
-ruby '~> 3.1'
-gem "bundler", "~> 2.7"
+ruby '3.4.5'
+gem "bundler", "~> 2.3"
 
 # Hello! This is where you manage which Jekyll version is used to run.
 # When you want to use a different version, change it below, save the
@@ -19,7 +19,8 @@ gem "jekyll", "~> 4.3"
 # pro version
 gem "jekyll-theme-hydejack", path: "./#jekyll-theme-hydejack"
 
-# IMPORTANT: The followign gem is used to compile math formulas to 
+
+# IMPORTANT: The following gem is used to compile math formulas to 
 # KaTeX during site building.
 #
 # There are a couple of things to know about this gem:
@@ -31,7 +32,7 @@ gem "jekyll-theme-hydejack", path: "./#jekyll-theme-hydejack"
 #    For details, see <https://github.com/kramdown/math-katex#documentation>
 #
 # If you're using the MathJax math engine instead, free to remove the line below:
-gem "kramdown-math-katex"
+# gem "kramdown-math-katex"
 
 group :jekyll_plugins do
   gem "jekyll-default-layout"
@@ -54,3 +55,5 @@ end
 
 gem 'wdm' if Gem.win_platform?
 gem "tzinfo-data" if Gem.win_platform?
+
+gem "logger", "~> 1.7"
