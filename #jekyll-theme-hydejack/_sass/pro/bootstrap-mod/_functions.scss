@@ -1,6 +1,7 @@
 @use "sass:color";
 @use "sass:math";
 @use "sass:map";
+@use "sass:list";
 
 // Bootstrap functions
 //
@@ -28,7 +29,7 @@
 // Another grid mixin that ensures the min-width of the lowest breakpoint starts at 0.
 @mixin _assert-starts-at-zero($map) {
   $values: map.values($map);
-  $first-value: nth($values, 1);
+  $first-value: list.nth($values, 1);
   @if $first-value != 0 {
     @warn "First breakpoint in `$grid-breakpoints` must start at 0, but starts at #{$first-value}.";
   }
