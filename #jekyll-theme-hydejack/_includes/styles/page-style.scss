@@ -8,10 +8,10 @@ html {
   --accent-color-darkened: #{mix(black, {{ color }}, 7.5%)};
   --theme-color: {{ theme_color }};
   {% if site.github and site.hydejack.dart_sass_2_compat != true %}
-  --dark-mode-body-bg: #{hsl(from {{ theme_color }} h s calc(s / 8) 17.5%)};
-  --dark-mode-border-color: #{hsl(from {{ theme_color }} h s calc(s / 8) 22.5%)};
+  --dark-mode-body-bg: #{hsl(hue({{ theme_color }}), (saturation({{ theme_color }}) / 8), 17.5%)};
+  --dark-mode-border-color: #{hsl(hue({{ theme_color }}), (saturation({{ theme_color }}) / 8), 22.5%)};
   {% else %}
-  --dark-mode-body-bg: #{hsl(from {{ theme_color }} h s calc(s / 8) 17.5%)};
-  --dark-mode-border-color: #{hsl(from {{ theme_color }} h s calc(s / 8) 22.5%)};
+  --dark-mode-body-bg: #{hsl(hue({{ theme_color }}), calc(saturation({{ theme_color }}) / 8), 17.5%)};
+  --dark-mode-border-color: #{hsl(hue({{ theme_color }}), calc(saturation({{ theme_color }}) / 8), 22.5%)};
   {% endif %}
 }
