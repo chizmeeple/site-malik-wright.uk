@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // Button variants
 //
 // Easily pump out default styles, as well as :hover, :focus, :active,
@@ -6,10 +8,10 @@
 @mixin button-variant(
   $background,
   $border,
-  $hover-background: mix(black, $background, 7.5%),
-  $hover-border: mix(black, $border, 10%),
-  $active-background: mix(black, $background, 10%),
-  $active-border: mix(black, $border, 12.5%)
+  $hover-background: color.mix(black, $background, 7.5%),
+  $hover-border: color.mix(black, $border, 10%),
+  $active-background: color.mix(black, $background, 10%),
+  $active-border: color.mix(black, $border, 12.5%)
 ) {
   color: color-yiq($background);
   @include gradient-bg($background);

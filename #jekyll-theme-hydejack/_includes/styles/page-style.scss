@@ -1,3 +1,5 @@
+@use "sass:color";
+
 {% assign color       = include.color       %}
 {% assign theme_color = include.theme_color %}
 
@@ -5,7 +7,7 @@ html {
   --accent-color: {{ color }};
   --accent-color-faded: #{rgba({{ color }}, 0.5)};
   --accent-color-highlight: #{rgba({{ color }}, 0.1)};
-  --accent-color-darkened: #{mix(black, {{ color }}, 7.5%)};
+  --accent-color-darkened: #{color.mix(black, {{ color }}, 7.5%)};
   --theme-color: {{ theme_color }};
   {% if site.github and site.hydejack.dart_sass_2_compat != true %}
   --dark-mode-body-bg: #{hsl(modern-hue({{ theme_color }}), (modern-saturation({{ theme_color }}) / 8), 17.5%)};

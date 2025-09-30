@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // Variables
 //
 // Variables should follow the `$component-state-property-size` formula for
@@ -80,7 +82,7 @@ $theme-colors: map-merge(
     // "warning":    $warning,
     // "danger":     $danger,
     // "light":      $light,
-     // "dark":       $dark,
+    // "dark":       $dark,,
   ),
   $theme-colors
 );
@@ -161,7 +163,7 @@ $body-color: var(--body-color);
 
 $link-color: theme-color("primary") !default;
 $link-decoration: none !default;
-$link-hover-color: mix(black, $link-color, 15%) !default;
+$link-hover-color: color.mix(black, $link-color, 15%) !default;
 $link-hover-decoration: underline !default;
 
 // Paragraphs
