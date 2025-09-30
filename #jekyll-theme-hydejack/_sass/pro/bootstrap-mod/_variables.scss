@@ -1,4 +1,5 @@
 @use "sass:color";
+@use "sass:map";
 
 // Variables
 //
@@ -73,7 +74,7 @@ $danger: $red !default;
 // $dark:          $gray-800 !default;
 
 $theme-colors: () !default;
-$theme-colors: map-merge(
+$theme-colors: map.merge(
   (
     "primary": $primary,
     // "secondary":  $secondary,
@@ -82,7 +83,7 @@ $theme-colors: map-merge(
     // "warning":    $warning,
     // "danger":     $danger,
     // "light":      $light,
-    // "dark":       $dark,,
+    // "dark":       $dark,,,
   ),
   $theme-colors
 );
@@ -120,7 +121,7 @@ $enable-print-styles: true !default;
 // stylelint-disable
 $spacer: 1rem !default;
 $spacers: () !default;
-$spacers: map-merge(
+$spacers: map.merge(
   (
     0: 0,
     1: (
