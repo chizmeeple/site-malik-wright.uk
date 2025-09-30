@@ -4,17 +4,17 @@
   },
   "basics": {
     "name": "Chisel Malik-Wright",
-    "summary": "Developer evolved into devops, further evolved into SRE.<br/>Particularly interested in problem solving code, process and architectural challenges. Preferably with access to good, modern solutions.<br/><br/>Availability: Two calendar months.",
+    "summary": "Developer evolved into devops, further evolved into SRE.<br/>Particularly interested in problem solving code, process and architectural challenges. Preferably with access to good, modern solutions.<br/><br/>Availability: **Three** calendar months.",
     "picture": "/assets/img/people/chisel@256x256.png",
-    "email": "career@chisel.dev",
+    "email": "chisel@redmeeple.uk",
     "phone": "+44 7966 44 67 68",
     "website": "https://chisel.malik-wright.uk",
     "label": "Software, Infrastructure & Operations",
     "profiles": [
       {
         "network": "Instagram",
-        "username": "chizmw",
-        "url": "https://www.instagram.com/chizmw/"
+        "username": "chizmeeple",
+        "url": "https://www.instagram.com/chizmeeple/"
       }
     ],
     "location": {
@@ -27,10 +27,19 @@
   },
   "work": [
     {
+      "company": "Houseful",
+      "position": "Senior Security Engineer",
+      "website": "",
+      "startDate": "2024-10-09",
+      "summary": "",
+      "highlights": []
+    },
+    {
       "company": "Zoopla",
       "position": "Site Reliability Engineer",
       "website": "",
       "startDate": "2020-05-01",
+      "endDate": "2024-09-09",
       "summary": "",
       "highlights": [
         "Incident Management: assist with process implementation; trial tool to automate aspects of process to speed up incident response",
@@ -244,20 +253,32 @@
   ],
   "skills": [
     {
+      "name": "Security",
+      "level": "Intermediate",
+      "keywords": ["Rapid7", "Cloudfront", "Sonarqube", "Meterian", "Metomic"]
+    },
+    {
       "name": "SaaS",
       "level": "Professional",
-      "keywords": ["OpsGenie", "blameless.com", "Gitlab (self-hosted)"]
+      "keywords": [
+        "blameless.com",
+        "Github",
+        "Gitlab (self-hosted)",
+        "Jira",
+        "OpsGenie"
+      ]
     },
     {
       "name": "Languages",
       "level": "Professional",
       "keywords": [
-        "Perl",
-        "Shell (bash/zsh)",
         "C",
+        "golang",
         "Groovy",
         "JavaScript",
-        "golang"
+        "Perl",
+        "Python",
+        "Shell (bash/zsh)"
       ]
     },
     {
@@ -275,7 +296,8 @@
         "terrafrom",
         "jenkins",
         "gitlab",
-        "subversion"
+        "subversion",
+        "github"
       ]
     },
     {
