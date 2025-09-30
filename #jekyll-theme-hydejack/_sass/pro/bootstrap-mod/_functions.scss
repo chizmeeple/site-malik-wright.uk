@@ -96,3 +96,12 @@
 
   @return mix($color-base, $color, $level * $theme-color-interval);
 }
+
+// Modern color functions using sass:color module
+@function modern-hue($color) {
+  @return color.channel($color, "hue", $space: hsl);
+}
+
+@function modern-saturation($color) {
+  @return color.channel($color, "saturation", $space: hsl);
+}
