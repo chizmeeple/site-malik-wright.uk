@@ -80,15 +80,15 @@
 
 // Retrieve color Sass maps
 @function color($key: "blue") {
-  @return map-get($colors, $key);
+  @return map.get($colors, $key);
 }
 
 @function theme-color($key: "primary") {
-  @return map-get($theme-colors, $key);
+  @return map.get($theme-colors, $key);
 }
 
 @function gray($key: "100") {
-  @return map-get($grays, $key);
+  @return map.get($grays, $key);
 }
 
 // Request a theme color level
