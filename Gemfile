@@ -12,6 +12,8 @@ gem "bundler", "~> 2.3"
 # This will help ensure the proper Jekyll version is running.
 # Happy Jekylling!
 gem "jekyll", "~> 4.3"
+gem "jekyll-sass-converter", "~> 3.0"
+gem "sass-embedded", "~> 1.80"
 
 # free version
 #gem "jekyll-theme-hydejack", "~> 9.0"

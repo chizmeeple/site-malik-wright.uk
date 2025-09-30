@@ -224,12 +224,14 @@ DEPENDENCIES
   jekyll-readme-index
   jekyll-redirect-from
   jekyll-relative-links
+  jekyll-sass-converter (~> 3.0)
   jekyll-seo-tag
   jekyll-sitemap
   jekyll-target-blank
   jekyll-theme-hydejack!
   jekyll-titles-from-headings
   logger (~> 1.7)
+  sass-embedded (~> 1.80)
 
 RUBY VERSION
    ruby 3.4.5p51
