@@ -75,6 +75,9 @@ copyright: © 2025. All rights reserved.
 # Format of the permalinks
 permalink: /:categories/:year-:month-:day-:title/
 
+# Enable future-dated posts (useful for conventions)
+future: false
+
 # Pagination configuration (used by the `blog` layout)
 paginate: 10
 paginate_path: /:num/
@@ -140,6 +143,12 @@ defaults:
     values:
       layout: plain
       sitemap: false
+
+  # Convention posts use a simpler permalink without dates
+  - scope:
+      path: "conventions/_posts"
+    values:
+      permalink: /conventions/:title/
 
   # # You can use the following to enable comments on all posts.
   # - scope:

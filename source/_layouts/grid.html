@@ -1,0 +1,140 @@
+---
+# Copyright (c) 2019 Florian Klampfer <https://qwtel.com/>
+layout: page
+---
+
+{% if page.slug == 'conventions' %}
+  {% comment %} For conventions, include future-dated posts (enabled via future: true in config) {% endcomment %}
+  {% comment %} Separate active events from past events based on event_end_date {% endcomment %}
+  {% assign all_posts = site.categories[page.slug] | default:site.posts %}
+  {% assign active_posts = '' | split: '' %}
+  {% assign past_posts = '' | split: '' %}
+  {% assign today_epoch = 'now' | date: '%s' | plus: 0 %}
+  
+  {% for post in all_posts %}
+    {% if post.event_end_date %}
+      {% assign event_end_epoch = post.event_end_date | date: '%s' | plus: 0 %}
+      {% if event_end_epoch >= today_epoch %}
+        {% assign active_posts = active_posts | push: post %}
+      {% else %}
+        {% assign past_posts = past_posts | push: post %}
+      {% endif %}
+    {% elsif post.event_start_date %}
+      {% assign event_start_epoch = post.event_start_date | date: '%s' | plus: 0 %}
+      {% if event_start_epoch >= today_epoch %}
+        {% assign active_posts = active_posts | push: post %}
+      {% else %}
+        {% assign past_posts = past_posts | push: post %}
+      {% endif %}
+    {% else %}
+      {% comment %} No event dates means include in active (always show) {% endcomment %}
+      {% assign active_posts = active_posts | push: post %}
+    {% endif %}
+  {% endfor %}
+  
+  {% comment %} Sort active_posts by event_start_date (soonest first) {% endcomment %}
+  {% assign sorted_active_posts = '' | split: '' %}
+  {% for post in active_posts %}
+    {% if post.event_start_date %}
+      {% assign post_sort_key = post.event_start_date | date: '%s' | plus: 0 %}
+    {% elsif post.event_end_date %}
+      {% assign post_sort_key = post.event_end_date | date: '%s' | plus: 0 %}
+    {% else %}
+      {% assign post_sort_key = post.date | date: '%s' | plus: 0 %}
+    {% endif %}
+    {% assign inserted = false %}
+    {% assign new_sorted = '' | split: '' %}
+    {% for sorted_post in sorted_active_posts %}
+      {% if sorted_post.event_start_date %}
+        {% assign sorted_sort_key = sorted_post.event_start_date | date: '%s' | plus: 0 %}
+      {% elsif sorted_post.event_end_date %}
+        {% assign sorted_sort_key = sorted_post.event_end_date | date: '%s' | plus: 0 %}
+      {% else %}
+        {% assign sorted_sort_key = sorted_post.date | date: '%s' | plus: 0 %}
+      {% endif %}
+      {% if inserted == false and post_sort_key < sorted_sort_key %}
+        {% assign new_sorted = new_sorted | push: post %}
+        {% assign inserted = true %}
+      {% endif %}
+      {% assign new_sorted = new_sorted | push: sorted_post %}
+    {% endfor %}
+    {% unless inserted %}
+      {% assign new_sorted = new_sorted | push: post %}
+    {% endunless %}
+    {% assign sorted_active_posts = new_sorted %}
+  {% endfor %}
+  
+  {% assign posts = sorted_active_posts %}
+{% else %}
+  {% comment %} For other categories, use default behaviour {% endcomment %}
+  {% assign posts = site.categories[page.slug] | default:site.tags[page.slug] | default:site.posts %}
+{% endif %}
+
+{{ content }}
+
+{% assign date_formats  = site.data.strings.date_formats               %}
+{% assign list_group_by = date_formats.list_group_by | default:"%Y"    %}
+{% assign no_third_column = page.no_third_column | default:site.hydejack.no_third_column | default:false %}
+
+{% comment %} For conventions, group by event_start_date if available, otherwise use post date {% endcomment %}
+{% if page.slug == 'conventions' %}
+  {% assign list_group_by = date_formats.list_group_by | default:"%Y" %}
+{% endif %}
+
+{% assign prev_date = 0 %}
+{% if page.no_groups %}<div class="columns {% unless no_third_column %}columns-break{% endunless %}">{% endif %}
+{% for post in posts %}
+  {% if page.slug == 'conventions' and post.event_start_date %}
+    {% assign current_date = post.event_start_date | date:list_group_by %}
+  {% else %}
+    {% assign current_date = post.date | date:list_group_by %}
+  {% endif %}
+
+  {% unless page.no_groups %}{% if current_date != prev_date %}
+    {% unless forloop.first %}</div>{% endunless %}
+
+    <h2 id="{{ list_group_by | slugify }}-{{ current_date | slugify }}">{{ current_date }}</h2>
+    <div class="columns columns-break">
+    {% assign prev_date = current_date %}
+  {% endif %}{% endunless %}
+
+  {% assign featured = page.featured | default:post.featured %}
+  <div class="column {% if featured %}column-1{% else %}column-1-2{% endif %}">
+    {% include_cached pro/post-card.html post=post featured=featured %}
+  </div>
+
+  {% if forloop.last %}</div>{% endif %}
+{% endfor %}
+
+{% if page.slug == 'conventions' and past_posts.size > 0 %}
+  {% unless page.no_groups %}
+    {% if posts.size > 0 %}</div>{% endif %}
+  {% endunless %}
+  
+  <h2 id="past-events">Past Events</h2>
+  
+  {% assign prev_date = 0 %}
+  {% if page.no_groups %}<div class="columns {% unless no_third_column %}columns-break{% endunless %}">{% endif %}
+  {% for post in past_posts %}
+    {% if post.event_start_date %}
+      {% assign current_date = post.event_start_date | date:list_group_by %}
+    {% else %}
+      {% assign current_date = post.date | date:list_group_by %}
+    {% endif %}
+
+    {% unless page.no_groups %}{% if current_date != prev_date %}
+      {% unless forloop.first %}</div>{% endunless %}
+
+      <h3 id="past-{{ list_group_by | slugify }}-{{ current_date | slugify }}">{{ current_date }}</h3>
+      <div class="columns columns-break">
+      {% assign prev_date = current_date %}
+    {% endif %}{% endunless %}
+
+    {% assign featured = page.featured | default:post.featured %}
+    <div class="column {% if featured %}column-1{% else %}column-1-2{% endif %}">
+      {% include_cached pro/post-card.html post=post featured=featured %}
+    </div>
+
+    {% if forloop.last %}</div>{% endif %}
+  {% endfor %}
+{% endif %}
