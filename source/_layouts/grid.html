@@ -111,6 +111,7 @@ layout: page
     {% if posts.size > 0 %}</div>{% endif %}
   {% endunless %}
   
+  <div class="hr"></div>
   <h2 id="past-events">Past Events</h2>
   
   {% assign prev_date = 0 %}
@@ -131,7 +132,7 @@ layout: page
     {% endif %}{% endunless %}
 
     {% assign featured = page.featured | default:post.featured %}
-    <div class="column {% if featured %}column-1{% else %}column-1-2{% endif %}">
+    <div class="column {% if featured %}column-1{% else %}column-1-2{% endif %} past-event">
       {% include_cached pro/post-card.html post=post featured=featured %}
     </div>
 

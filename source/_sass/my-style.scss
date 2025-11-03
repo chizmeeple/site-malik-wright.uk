@@ -1,51 +1,56 @@
 .dl-table {
   a {
-    @supports ((text-decoration-thickness: initial) and (text-underline-offset: initial)) {
-      text-underline-offset: .8rem;
+    @supports (
+      (text-decoration-thickness: initial) and (text-underline-offset: initial)
+    ) {
+      text-underline-offset: 0.8rem;
     }
-    @supports not ((text-decoration-thickness: initial) and (text-underline-offset: initial)) {
-      padding-bottom: .45rem;
+    @supports not (
+      (text-decoration-thickness: initial) and (text-underline-offset: initial)
+    ) {
+      padding-bottom: 0.45rem;
     }
   }
 
-  .btn, .gumroad-button  {
+  .btn,
+  .gumroad-button {
     margin: 1rem 0;
   }
 }
 
 // https://crunchify.com/how-to-add-smooth-scrolling-back-to-top-button-to-your-wordpress-blog/
 .crunchify-top:hover {
-    color: #fff !important;
-    background-color: #ed702b;
-    text-decoration: none;
+  color: #fff !important;
+  background-color: #ed702b;
+  text-decoration: none;
 }
 
 .crunchify-top {
-    display: none;
-    position: fixed;
-    bottom: 1rem;
-    right: 1rem;
-    width: 3.2rem;
-    height: 3.2rem;
-    line-height: 3.2rem;
-    font-size: 1.4rem;
-    color: #fff;
-    background-color: rgba(0,0,0,0.3);
-    text-decoration: none;
-    border-radius: 3.2rem;
-    text-align: center;
-    cursor: pointer;
+  display: none;
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  width: 3.2rem;
+  height: 3.2rem;
+  line-height: 3.2rem;
+  font-size: 1.4rem;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.3);
+  text-decoration: none;
+  border-radius: 3.2rem;
+  text-align: center;
+  cursor: pointer;
 }
 
 .tweet-container {
-    margin:auto;
-    width:300px;
+  margin: auto;
+  width: 300px;
 }
 
 .payment-box {
-    text-align: center;
-    margin: auto;
-    margin-bottom: 1.5em;
+  text-align: center;
+  margin: auto;
+  margin-bottom: 1.5em;
 }
 
 .read-estimate {
@@ -58,4 +63,16 @@
   font-variant: small-caps;
   font-size: 90%;
   margin-bottom: 15px;
+}
+
+// Dim out past event cards
+.past-event {
+  .project-card {
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+  }
+
+  .project-card:hover {
+    opacity: 0.8;
+  }
 }
