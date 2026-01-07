@@ -330,6 +330,7 @@ exclude:
   - "*.sw?"
   - ".gitignore"
   - "Dockerfile"
+  - calendar
 include:
   - .well-known
   - LICENSE.md

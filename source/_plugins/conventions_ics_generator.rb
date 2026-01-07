@@ -63,11 +63,11 @@ module Jekyll
         calendar.add_event(event)
       end
       
-      # Create the calendar directory in the source so it gets copied to destination
-      calendar_dir = File.join(site.source, 'calendar')
+      # Write directly to destination directory to avoid triggering rebuilds
+      calendar_dir = File.join(site.dest, 'calendar')
       FileUtils.mkdir_p(calendar_dir) unless Dir.exist?(calendar_dir)
       
-      # Write the ICS file to source directory
+      # Write the ICS file to destination directory
       ics_file = File.join(calendar_dir, 'conventions.ics')
       File.write(ics_file, calendar.to_ical)
     end
