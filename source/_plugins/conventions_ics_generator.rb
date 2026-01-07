@@ -7,6 +7,12 @@ module Jekyll
     priority :low
 
     def generate(site)
+      # Store the site reference and generate calendar content
+      @site = site
+      @calendar = build_calendar(site)
+    end
+
+    def build_calendar(site)
       calendar = Icalendar::Calendar.new
       calendar.prodid = "-//#{site.config['title'] || 'Jekyll'}//Conventions Calendar//EN"
       calendar.version = "2.0"
@@ -63,13 +69,26 @@ module Jekyll
         calendar.add_event(event)
       end
       
-      # Write directly to destination directory to avoid triggering rebuilds
-      calendar_dir = File.join(site.dest, 'calendar')
-      FileUtils.mkdir_p(calendar_dir) unless Dir.exist?(calendar_dir)
-      
-      # Write the ICS file to destination directory
-      ics_file = File.join(calendar_dir, 'conventions.ics')
-      File.write(ics_file, calendar.to_ical)
+      calendar
     end
+  end
+
+  # Hook to write the file after Jekyll has finished writing the site
+  Jekyll::Hooks.register :site, :post_write do |site|
+    # Find the generator instance to get the calendar
+    generator = site.generators.find { |g| g.is_a?(ConventionsICSGenerator) }
+    next unless generator
+    
+    calendar = generator.instance_variable_get(:@calendar)
+    next unless calendar
+    
+    # Write to destination directory after Jekyll has finished
+    dest_dir = site.dest
+    calendar_dir = File.join(dest_dir, 'calendar')
+    FileUtils.mkdir_p(calendar_dir)
+    
+    # Write the ICS file to destination directory
+    ics_file = File.join(calendar_dir, 'conventions.ics')
+    File.write(ics_file, calendar.to_ical)
   end
 end
