@@ -11,31 +11,19 @@
 {% comment %} Google Calendar subscription URL {% endcomment %}
 {% assign google_cal_url = 'https://calendar.google.com/calendar/render?cid=' | append: ics_url %}
 
-<div class="calendar-subscribe-wrapper" style="margin-bottom: 2rem;">
+<div class="calendar-subscribe-wrapper" style="margin-bottom: 1.5rem;">
   <div class="dropdown" style="position: relative; display: inline-block;">
     <button 
-      class="btn btn-primary dropdown-toggle" 
       type="button" 
       id="calendarSubscribeBtn" 
       aria-haspopup="true" 
       aria-expanded="false"
-      style="
-        background-color: var(--accent-color, rgb(79,177,186));
-        color: white;
-        border: none;
-        padding: 0.5rem 1rem;
-        border-radius: 0.25rem;
-        cursor: pointer;
-        font-weight: 500;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-      "
+      class="calendar-subscribe-btn"
       onclick="toggleCalendarDropdown()"
     >
-      <span>📅</span>
+      <span style="margin-right: 0.25rem;">📅</span>
       <span>Subscribe to Calendar</span>
-      <span style="font-size: 0.75em;">▼</span>
+      <span style="margin-left: 0.25rem; font-size: 0.7em; opacity: 0.7;">▼</span>
     </button>
     <div 
       id="calendarDropdown" 
@@ -45,14 +33,14 @@
         position: absolute;
         top: 100%;
         left: 0;
-        margin-top: 0.25rem;
-        background: white;
-        border: 1px solid #ddd;
+        margin-top: 0.5rem;
+        background: var(--body-bg, #fff);
+        border: 1px solid var(--border-color, rgba(0,0,0,0.1));
         border-radius: 0.25rem;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-        min-width: 200px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        min-width: 180px;
         z-index: 1000;
-        padding: 0.5rem 0;
+        padding: 0.25rem 0;
       "
     >
       <a 
@@ -62,12 +50,13 @@
         class="dropdown-item"
         style="
           display: block;
-          padding: 0.75rem 1rem;
-          color: #333;
+          padding: 0.5rem 0.75rem;
+          color: var(--body-color, #333);
           text-decoration: none;
           transition: background-color 0.15s;
+          font-size: 0.9em;
         "
-        onmouseover="this.style.backgroundColor='#f5f5f5'"
+        onmouseover="this.style.backgroundColor='var(--accent-color-highlight, rgba(79,177,186,0.1))'"
         onmouseout="this.style.backgroundColor='transparent'"
       >
         📅 Google Calendar
@@ -77,12 +66,13 @@
         class="dropdown-item"
         style="
           display: block;
-          padding: 0.75rem 1rem;
-          color: #333;
+          padding: 0.5rem 0.75rem;
+          color: var(--body-color, #333);
           text-decoration: none;
           transition: background-color 0.15s;
+          font-size: 0.9em;
         "
-        onmouseover="this.style.backgroundColor='#f5f5f5'"
+        onmouseover="this.style.backgroundColor='var(--accent-color-highlight, rgba(79,177,186,0.1))'"
         onmouseout="this.style.backgroundColor='transparent'"
       >
         📧 Outlook Calendar
@@ -93,12 +83,13 @@
         class="dropdown-item"
         style="
           display: block;
-          padding: 0.75rem 1rem;
-          color: #333;
+          padding: 0.5rem 0.75rem;
+          color: var(--body-color, #333);
           text-decoration: none;
           transition: background-color 0.15s;
+          font-size: 0.9em;
         "
-        onmouseover="this.style.backgroundColor='#f5f5f5'"
+        onmouseover="this.style.backgroundColor='var(--accent-color-highlight, rgba(79,177,186,0.1))'"
         onmouseout="this.style.backgroundColor='transparent'"
       >
         💾 Download .ics file

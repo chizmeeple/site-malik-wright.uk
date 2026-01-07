@@ -76,3 +76,49 @@
     opacity: 0.8;
   }
 }
+
+// Calendar subscribe button styling - matches theme link style
+.calendar-subscribe-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  font-size: 1em;
+  font-family: inherit;
+  color: var(--body-color);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: color 250ms, text-decoration-color 250ms, border-color 250ms;
+  
+  &:hover {
+    transition: color 50ms, text-decoration-color 50ms, border-color 50ms;
+  }
+}
+
+// Use theme's link styling for the button
+.content .calendar-subscribe-btn {
+  @supports ((text-decoration-thickness: initial) and (text-underline-offset: initial)) {
+    text-decoration-style: solid;
+    text-underline-offset: .35rem;
+    text-decoration-thickness: 2px;
+    text-decoration-color: var(--accent-color-faded);
+  }
+  
+  @supports not ((text-decoration-thickness: initial) and (text-underline-offset: initial)) {
+    text-decoration: none;
+    border-bottom: 2px solid var(--accent-color-faded);
+    padding-bottom: 0.1rem;
+  }
+  
+  &:hover {
+    @supports ((text-decoration-thickness: initial) and (text-underline-offset: initial)) {
+      text-decoration-color: var(--accent-color);
+    }
+    
+    @supports not ((text-decoration-thickness: initial) and (text-underline-offset: initial)) {
+      border-color: var(--accent-color);
+    }
+  }
+}
