@@ -50,3 +50,6 @@ _zip
 
 /assets/js/*hydejack-*
 /_sass/*/__*__/*
+
+# Generated files
+source/calendar/conventions.ics

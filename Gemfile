@@ -49,6 +49,7 @@ group :jekyll_plugins do
   gem "jekyll-titles-from-headings"
   gem "jekyll-include-cache"
   gem "jekyll-target-blank"
+  gem "icalendar", "~> 2.8"
 
   # Non-Github Pages plugins:
   gem "jekyll-last-modified-at"
