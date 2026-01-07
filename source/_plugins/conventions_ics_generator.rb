@@ -41,17 +41,19 @@ module Jekyll
         event.dtend = Icalendar::Values::Date.new(end_date + 1)
         
         event.summary = post.data['title'] || post.data['name'] || 'Convention'
-        event.description = post.data['description'] || post.content.strip
         
-        # Add URL if available
-        if post.data['event_link']
-          event.url = post.data['event_link']
-        else
-          # Use the post URL
-          base_url = site.config['url'] || ''
-          baseurl = site.config['baseurl'] || ''
-          event.url = "#{base_url}#{baseurl}#{post.url}"
-        end
+        # Build the post URL
+        base_url = site.config['url'] || ''
+        baseurl = site.config['baseurl'] || ''
+        post_url = "#{base_url}#{baseurl}#{post.url}"
+        
+        # Build description with link to blog post
+        description = post.data['description'] || post.content.strip
+        description += "\n\nMore info: #{post_url}"
+        event.description = description
+        
+        # Always set URL to the blog post URL
+        event.url = post_url
         
         # Add location if available
         if post.data['event_venue']
