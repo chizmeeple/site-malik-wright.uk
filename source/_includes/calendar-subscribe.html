@@ -1,0 +1,136 @@
+{% comment %}
+  Calendar subscription dropdown button
+  Usage: {% include calendar-subscribe.html %}
+{% endcomment %}
+
+{% assign base_url = site.url | default: site.config.url | default: '' %}
+{% assign baseurl = site.baseurl | default: '' %}
+{% assign ics_url = base_url | append: baseurl | append: '/calendar/conventions.ics' %}
+{% comment %} Convert to webcal:// protocol for calendar subscription {% endcomment %}
+{% assign webcal_url = ics_url | replace: 'https://', 'webcal://' | replace: 'http://', 'webcal://' %}
+{% comment %} Google Calendar subscription URL {% endcomment %}
+{% assign google_cal_url = 'https://calendar.google.com/calendar/render?cid=' | append: ics_url %}
+
+<div class="calendar-subscribe-wrapper" style="margin-bottom: 2rem;">
+  <div class="dropdown" style="position: relative; display: inline-block;">
+    <button 
+      class="btn btn-primary dropdown-toggle" 
+      type="button" 
+      id="calendarSubscribeBtn" 
+      aria-haspopup="true" 
+      aria-expanded="false"
+      style="
+        background-color: var(--accent-color, rgb(79,177,186));
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 0.25rem;
+        cursor: pointer;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      "
+      onclick="toggleCalendarDropdown()"
+    >
+      <span>📅</span>
+      <span>Subscribe to Calendar</span>
+      <span style="font-size: 0.75em;">▼</span>
+    </button>
+    <div 
+      id="calendarDropdown" 
+      class="dropdown-menu" 
+      style="
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        margin-top: 0.25rem;
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 0.25rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        min-width: 200px;
+        z-index: 1000;
+        padding: 0.5rem 0;
+      "
+    >
+      <a 
+        href="{{ google_cal_url }}" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        class="dropdown-item"
+        style="
+          display: block;
+          padding: 0.75rem 1rem;
+          color: #333;
+          text-decoration: none;
+          transition: background-color 0.15s;
+        "
+        onmouseover="this.style.backgroundColor='#f5f5f5'"
+        onmouseout="this.style.backgroundColor='transparent'"
+      >
+        📅 Google Calendar
+      </a>
+      <a 
+        href="{{ webcal_url }}" 
+        class="dropdown-item"
+        style="
+          display: block;
+          padding: 0.75rem 1rem;
+          color: #333;
+          text-decoration: none;
+          transition: background-color 0.15s;
+        "
+        onmouseover="this.style.backgroundColor='#f5f5f5'"
+        onmouseout="this.style.backgroundColor='transparent'"
+      >
+        📧 Outlook Calendar
+      </a>
+      <a 
+        href="{{ ics_url }}" 
+        download="conventions.ics"
+        class="dropdown-item"
+        style="
+          display: block;
+          padding: 0.75rem 1rem;
+          color: #333;
+          text-decoration: none;
+          transition: background-color 0.15s;
+        "
+        onmouseover="this.style.backgroundColor='#f5f5f5'"
+        onmouseout="this.style.backgroundColor='transparent'"
+      >
+        💾 Download .ics file
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleCalendarDropdown() {
+  const dropdown = document.getElementById('calendarDropdown');
+  const button = document.getElementById('calendarSubscribeBtn');
+  
+  if (dropdown.style.display === 'none' || dropdown.style.display === '') {
+    dropdown.style.display = 'block';
+    button.setAttribute('aria-expanded', 'true');
+  } else {
+    dropdown.style.display = 'none';
+    button.setAttribute('aria-expanded', 'false');
+  }
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function(event) {
+  const dropdown = document.getElementById('calendarDropdown');
+  const button = document.getElementById('calendarSubscribeBtn');
+  
+  if (dropdown && button && 
+      !dropdown.contains(event.target) && 
+      !button.contains(event.target)) {
+    dropdown.style.display = 'none';
+    button.setAttribute('aria-expanded', 'false');
+  }
+});
+</script>
