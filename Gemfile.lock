@@ -61,6 +61,12 @@ GEM
     http_parser.rb (0.8.1)
     i18n (1.14.8)
       concurrent-ruby (~> 1.0)
+    icalendar (2.12.1)
+      base64
+      ice_cube (~> 0.16)
+      logger
+      ostruct
+    ice_cube (0.17.0)
     jekyll (4.4.1)
       addressable (~> 2.4)
       base64 (~> 0.2)
@@ -143,6 +149,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.19.0-x86_64-linux-musl)
       racc (~> 1.4)
+    ostruct (0.6.3)
     pathutil (0.16.2)
       forwardable-extended (~> 2.6)
     public_suffix (7.0.2)
@@ -213,6 +220,7 @@ PLATFORMS
 
 DEPENDENCIES
   bundler (~> 2.3)
+  icalendar (~> 2.8)
   jekyll (~> 4.3)
   jekyll-compose
   jekyll-default-layout
