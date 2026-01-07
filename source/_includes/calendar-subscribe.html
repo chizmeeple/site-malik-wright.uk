@@ -139,10 +139,11 @@ calendar subscription {% endcomment %} {% assign webcal_url = ics_url | replace:
 
   // Subscribe to Google Calendar
   function subscribeToGoogleCalendar(webcalUrl) {
-    // Google Calendar's cid parameter needs the URL to be properly encoded
+    // Use Google Calendar's "Add calendar by URL" page directly
+    // This matches the manual process that works correctly
     const encodedUrl = encodeURIComponent(webcalUrl);
     const googleCalUrl =
-      "https://calendar.google.com/calendar/render?cid=" + encodedUrl;
+      "https://calendar.google.com/calendar/u/0/r/settings/addbyurl?url=" + encodedUrl;
     window.open(googleCalUrl, "_blank", "noopener,noreferrer");
   }
 
