@@ -42,8 +42,9 @@ calendar subscription {% endcomment %} {% assign webcal_url = ics_url | replace:
     >
       <button
         type="button"
+        id="googleCalendarBtn"
         class="dropdown-item"
-        onclick="subscribeToGoogleCalendar('{{ webcal_url }}')"
+        onclick="subscribeToGoogleCalendar('{{ webcal_url }}', this)"
         style="
           display: block;
           width: 100%;
@@ -138,12 +139,28 @@ calendar subscription {% endcomment %} {% assign webcal_url = ics_url | replace:
   });
 
   // Subscribe to Google Calendar
-  function subscribeToGoogleCalendar(webcalUrl) {
-    // Google Calendar's cid parameter needs the URL to be properly encoded
+  function subscribeToGoogleCalendar(webcalUrl, button) {
+    const originalText = button ? button.innerHTML : "📅 Google Calendar";
+    
+    // Show feedback
+    if (button) {
+      button.innerHTML = "Opening Google Calendar...";
+    }
+    
+    // Use Google Calendar's render URL with cid parameter containing the webcal:// URL
+    // This format should properly subscribe to the calendar feed
     const encodedUrl = encodeURIComponent(webcalUrl);
-    const googleCalUrl =
-      "https://calendar.google.com/calendar/render?cid=" + encodedUrl;
+    const googleCalUrl = "https://www.google.com/calendar/render?cid=" + encodedUrl;
+    
+    // Open the subscription URL
     window.open(googleCalUrl, "_blank", "noopener,noreferrer");
+    
+    // Reset button text after a delay
+    if (button) {
+      setTimeout(function() {
+        button.innerHTML = originalText;
+      }, 2000);
+    }
   }
 
   // Copy feed URL to clipboard
