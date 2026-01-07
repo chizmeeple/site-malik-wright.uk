@@ -16,6 +16,7 @@ module Jekyll
       calendar = Icalendar::Calendar.new
       calendar.prodid = "-//#{site.config['title'] || 'Jekyll'}//Conventions Calendar//EN"
       calendar.version = "2.0"
+      calendar.x_wr_calname = "Conventions by Chisel"
       
       # Get all convention posts
       convention_posts = site.posts.docs.select do |post|
