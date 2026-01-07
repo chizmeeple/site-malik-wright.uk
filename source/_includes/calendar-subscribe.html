@@ -42,8 +42,9 @@ calendar subscription {% endcomment %} {% assign webcal_url = ics_url | replace:
     >
       <button
         type="button"
+        id="googleCalendarBtn"
         class="dropdown-item"
-        onclick="subscribeToGoogleCalendar('{{ webcal_url }}')"
+        onclick="subscribeToGoogleCalendar('{{ webcal_url }}', this)"
         style="
           display: block;
           width: 100%;
@@ -138,13 +139,53 @@ calendar subscription {% endcomment %} {% assign webcal_url = ics_url | replace:
   });
 
   // Subscribe to Google Calendar
-  function subscribeToGoogleCalendar(webcalUrl) {
-    // Use Google Calendar's "Add calendar by URL" page directly
-    // This matches the manual process that works correctly
-    const encodedUrl = encodeURIComponent(webcalUrl);
-    const googleCalUrl =
-      "https://calendar.google.com/calendar/u/0/r/settings/addbyurl?url=" + encodedUrl;
-    window.open(googleCalUrl, "_blank", "noopener,noreferrer");
+  function subscribeToGoogleCalendar(webcalUrl, button) {
+    const originalText = button ? button.innerHTML : "📅 Google Calendar";
+    
+    // Copy the URL to clipboard
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(webcalUrl).then(function() {
+        // Show feedback that URL was copied
+        if (button) {
+          button.innerHTML = "✓ URL copied! Opening...";
+        }
+        
+        // Wait a moment so user can see the feedback, then open the page
+        setTimeout(function() {
+          // Open Google Calendar's "Add by URL" page
+          // User can paste the URL (already in clipboard) - this matches the manual process
+          const googleCalUrl = "https://calendar.google.com/calendar/u/0/r/settings/addbyurl";
+          window.open(googleCalUrl, "_blank", "noopener,noreferrer");
+          
+          // Reset button text after opening
+          if (button) {
+            setTimeout(function() {
+              button.innerHTML = originalText;
+            }, 2000);
+          }
+        }, 800);
+      }).catch(function(err) {
+        // Fallback if clipboard fails
+        if (button) {
+          button.innerHTML = "⚠ Opening page...";
+          setTimeout(function() {
+            button.innerHTML = originalText;
+          }, 2000);
+        }
+        const googleCalUrl = "https://calendar.google.com/calendar/u/0/r/settings/addbyurl";
+        window.open(googleCalUrl, "_blank", "noopener,noreferrer");
+      });
+    } else {
+      // Fallback: just open the page, user can use "Copy feed URL" button
+      if (button) {
+        button.innerHTML = "Opening page...";
+        setTimeout(function() {
+          button.innerHTML = originalText;
+        }, 2000);
+      }
+      const googleCalUrl = "https://calendar.google.com/calendar/u/0/r/settings/addbyurl";
+      window.open(googleCalUrl, "_blank", "noopener,noreferrer");
+    }
   }
 
   // Copy feed URL to clipboard
