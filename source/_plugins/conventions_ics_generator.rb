@@ -66,8 +66,43 @@ module Jekyll
         event.uid = "#{post.data['event_start_date']}-#{post_id}@#{site.config['url'] || 'localhost'}"
         
         # Set created and last-modified timestamps
-        event.created = post.date
-        event.last_modified = post.date
+        # Use last_modified_at from data hash (jekyll-last-modified-at plugin),
+        # otherwise fall back to post.date or file mtime
+        # Ensure we convert to Time objects for the icalendar gem
+        created_time = post.date.is_a?(Time) ? post.date : post.date.to_time
+        
+        # Access last_modified_at from data hash (new API)
+        # The value might be a Jekyll::LastModifiedAt::Determinator object
+        last_modified_at = post.data['last_modified_at']
+        last_modified_time = nil
+        
+        if last_modified_at
+          # Handle different types: Time, Determinator, or other
+          if last_modified_at.is_a?(Time)
+            last_modified_time = last_modified_at
+          elsif last_modified_at.respond_to?(:to_time)
+            last_modified_time = last_modified_at.to_time
+          elsif last_modified_at.respond_to?(:time)
+            # Determinator might have a .time method
+            time_val = last_modified_at.time
+            last_modified_time = time_val.is_a?(Time) ? time_val : time_val.to_time
+          end
+        end
+        
+        # If we still don't have a time, try using the file's mtime
+        if last_modified_time.nil? && post.respond_to?(:path) && post.path && File.exist?(post.path)
+          begin
+            last_modified_time = File.mtime(post.path)
+          rescue
+            last_modified_time = created_time
+          end
+        end
+        
+        # Final fallback to created_time
+        last_modified_time ||= created_time
+        
+        event.created = created_time
+        event.last_modified = last_modified_time
         
         calendar.add_event(event)
       end
