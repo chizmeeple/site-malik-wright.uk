@@ -58,10 +58,16 @@ include.hide_image %} {% assign hide_description = include.hide_description %}
       class="no-hover no-print-link {% unless post.hide_image %}flip-project{% endunless %}"
       tabindex="-1"
       >{% endunless %}
-      <div class="img-wrapper lead aspect-ratio sixteen-nine flip-project-img">
-        {% include_cached components/hy-img.html img=post.image alt=post.title
-        width=864 height=486 %}
-      </div>
+      {% if post.categories contains 'conventions' %}
+        <div class="img-wrapper lead convention-event-img flip-project-img">
+          {% include_cached components/hy-img.html img=post.image alt=post.title %}
+        </div>
+      {% else %}
+        <div class="img-wrapper lead aspect-ratio sixteen-nine flip-project-img">
+          {% include_cached components/hy-img.html img=post.image alt=post.title
+          width=864 height=486 %}
+        </div>
+      {% endif %}
       {% unless no_link_title %}</a
     >{% endunless %} {% assign alt = '' %} {% endif %}{% endunless %} {% include
     components/message.html text=post.description hide=hide_description alt=alt

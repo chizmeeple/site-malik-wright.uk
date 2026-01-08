@@ -195,3 +195,23 @@
     }
   }
 }
+
+// Convention event images - display at natural aspect ratio without cropping
+.convention-event-img {
+  img {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    object-fit: contain;
+    object-position: center;
+  }
+}
+
+// Convention thumbnail cards - show full image without cropping
+.project-card-img.convention-thumbnail {
+  img {
+    object-fit: contain;
+    object-position: center;
+    background-color: var(--gray-bg);
+  }
+}
